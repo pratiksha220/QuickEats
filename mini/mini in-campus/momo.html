@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            border-bottom: 3px solid #FF6F61;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-links a {
+            margin: 2px 20px;
+            text-decoration: none;
+            color: #FF6F61;
+            font-weight: 600;
+        }
+
+        .search-cart {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search-bar {
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: #FF6F61;
+        }
+
+        .cart-icon {
+            margin-left: 1000px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #FF6F61;
+            position: relative;
+        }
+
+        .cart-icon::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        main {
+            padding: 100px 20px 20px;
+            text-align: center;
+            flex: 1; /* Allows main content to grow and push the footer down */
+        }
+
+        h2 {
+            font-size: 30px;
+            color: #f73333;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .Momos-list {
+            display: flex;
+            flex-wrap: wrap; /* Allows items to wrap */
+            justify-content: center; /* Centers items horizontally */
+            gap: 20px; /* Space between items */
+        }
+
+        .Momos-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centers content vertically */
+            justify-content: space-between;
+            width: 250px; /* Fixed width for items */
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center; /* Ensures text is centered */
+        }
+
+        .Momos-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .Momos-item img {
+            width: 100%; /* Ensure the image takes up full width */
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover; /* Maintain aspect ratio of images */
+        }
+
+        .Momos-item h3 {
+            font-size: 20px;
+            color: #FF6F61;
+            margin: 10px 0;
+        }
+
+        .Momos-item p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .hotel-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #FF6F61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #e65550;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: auto; /* Ensures the footer is at the bottom */
+        }
+
+        .footer div {
+            margin: 10px 20px;
+        }
+
+        .footer h3 {
+            margin-top: 0;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .Momos-item {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../home.html" class="logo">QuickEats</a>
+        <nav>
+            <a href="../cafeteria.html">Cafeteria</a>
+            <a href="../snacks.html">Snacks</a>
+            <a href="../beverges.html">Beverages</a>
+        </nav>
+        <div class="search-cart">
+          
+            <a href="../cart.html" class="cart-icon">&#128722;</a>
+        </div>
+        <div class="auth-links">
+            <a href="../help.html">Help</a>
+            <a href="../profile.html">Profile</a>
+        </div>
+    </header>
+    
+    <main>
+        <h2>Momos</h2>
+        <div class="Momos-list">
+            <div class="Momos-item">
+                <img src="momo types\fried.jpeg" alt="Fried Momos">
+                <h3>Fried Momos - RS 60</h3>
+                <div class="hotel-name">Available at: Udupi</div>
+                <p>These crispy Momos attain their lovely texture because they are filled with sauteed vegetables and are then deep fried until they turn to beautiful golden brown.</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Fried Momos', 60)">Add to Cart</button>
+            </div>
+            <div class="Momos-item">
+                <img src="momo types\Tandoori Momos.jpeg" alt="Tandoori Momos">
+                <h3>Tandoori Momos - Rs 70</h3>
+                <div class="hotel-name">Available at: Mercure Hotel</div>
+                <p>This Indian version of the Momos is very famous and is loved by almost everyone! How else could you prove your “Desiness” if you don’t eat everything topped with gravy, including momos!</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Tandoori Momos', 70)">Add to Cart</button>
+            </div>
+            <div class="Momos-item">
+                <img src="momo types\Steamed Momos.jpeg" alt="Steamed Momos">
+                <h3>Steamed Momos - Rs 50</h3>
+                <div class="hotel-name">Available at: Manis</div>
+                <p>These thickly wrapped Momos are stuffed to the core with Paneer, Vegetables and Soya Chunks. A filling plate of these Momos is the perfect comfort food for chilly winter evenings.</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Steamed Momos', 50)">Add to Cart</button>
+            </div>
+            <div class="Momos-item">
+                <img src="momo types\Chilly Momos.jpeg" alt="Chilly Momos">
+                <h3>Chilly Momos - Rs 60</h3>
+                <div class="hotel-name">Available at: Mercure Hotel</div>
+                <p>This plate of Momos is going to set your tongue on fire with its hot and tangy flavour. Soya Sauce, Chilli Sauce and Ketchup make an exquisite fusion as a topping to these Momos and are sure to bring your taste buds alive!</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Chilly Momos', 60)">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div>
+            <a href="../about.html"><h3>About Us</h3></a>
+            <p>The joy of having campus food</p>
+        </div>
+        <div>
+            <h3>Contact</h3>
+            <p>Email: info@quickeats.com</p>
+            <p>Phone: 123-456-7890</p>
+        </div>
+        <div>
+            <h3>Follow Us</h3>
+            <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        function addToCart(name, price) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let itemIndex = cart.findIndex(item => item.name === name);
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(name + ' added to cart');
+        }
+    </script>
+</body>
+
+</html>

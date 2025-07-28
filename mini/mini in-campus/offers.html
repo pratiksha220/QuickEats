@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order In - Special Offers</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        .logo-splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #FF9D88;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeOut 0.6s ease-out 1.5s forwards;
+        }
+
+        .logo-splash img {
+            max-width: 200px;
+            height: auto;
+            animation: pulse 1s ease-in-out;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .page-content {
+            opacity: 0;
+            animation: fadeIn 0.7s ease-in s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        header {
+            background-color: rgba(255, 99, 71, 0.9);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+
+        nav {
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .offer-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            width: 80%;
+            max-width: 500px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .offer-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #ff6347;
+        }
+
+        .offer-details {
+            font-size: 1em;
+            color: #333;
+        }
+
+        .offer-expiry {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        footer {
+            background-color: rgba(255, 99, 71, 0.9);
+            color: white;
+            text-align: center;
+            padding: 10px 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-splash">
+        <img src="ooo.jpg" alt="Order In Logo">
+    </div>
+
+    <div class="page-content">
+        <header>
+            <h1 class="logo">Order In</h1>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="cart.html">Cart</a></li>
+                    <li><a href="signout.html">Sign Out</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h2>Special Offers</h2>
+            <div class="offer-card">
+                <h3 class="offer-title">50% Off on First Order</h3>
+                <p class="offer-details">Get 50% off on your first order when you sign up and use the code FIRST50 at checkout. Enjoy delicious food at half the price!</p>
+                <p class="offer-expiry">Expires on: 31st July 2024</p>
+            </div>
+
+            <div class="offer-card">
+                <h3 class="offer-title">Free Delivery on Orders Above $20</h3>
+                <p class="offer-details">Order food worth $20 or more and get free delivery. No need to worry about delivery charges!</p>
+                <p class="offer-expiry">Expires on: 15th August 2024</p>
+            </div>
+
+            <div class="offer-card">
+                <h3 class="offer-title">Buy 1 Get 1 Free</h3>
+                <p class="offer-details">Buy any main course and get another one absolutely free. Use code BOGO at checkout to avail this offer.</p>
+                <p class="offer-expiry">Expires on: 31st July 2024</p>
+            </div>
+
+            <div class="offer-card">
+                <h3 class="offer-title">20% Off for Students</h3>
+                <p class="offer-details">All students get 20% off on their orders. Use your student ID to verify and enjoy the discount!</p>
+                <p class="offer-expiry">Expires on: 31st December 2024</p>
+            </div>
+        </main>
+
+        <footer>
+            © 2024 Order In. All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>

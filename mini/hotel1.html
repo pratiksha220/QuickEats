@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Udupi - QuickEats</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            border-bottom: 3px solid #FF6F61;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-links a {
+            margin: 2px 20px;
+            text-decoration: none;
+            color: #FF6F61;
+            font-weight: 600;
+        }
+
+        .search-cart {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search-bar {
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: #FF6F61;
+        }
+
+        .cart-icon {
+            position: relative;
+            margin-left: 1000px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #FF6F61;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #FF6F61;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        .add-to-cart-btn {
+            background-color: #FF6F61; /* Button color */
+            color: white; /* Text color */
+            font-weight: bold;
+            font-size: 16px;
+            padding: 12px 20px;
+            border-radius: 30px; /* Rounded corners */
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth transition */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            display: inline-block;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #e64a3c; /* Darker shade on hover */
+            transform: scale(1.05); /* Slightly enlarge the button */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+        }
+
+        .content {
+            padding: 20px;
+            padding-top: 80px; /* To avoid content being hidden under fixed header */
+        }
+
+        .hotel-title {
+            font-size: 32px;
+            color: #ff6f61;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .food-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .food-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .food-item:hover {
+            transform: scale(1.05);
+        }
+
+        .food-item img {
+            
+            border-radius: 8px;
+            width: 250px;
+            height: 200px;
+        }
+
+        .food-name {
+            font-size: 20px;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .food-price,
+        .food-rating {
+            font-size: 18px;
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .quantity-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .quantity-controls button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+
+        .quantity-controls button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .add-button {
+            padding: 8px 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-button:hover {
+            background-color: #218838;
+        }
+
+        .cart-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .cart-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">QuickEats</a>
+        <nav>
+            <a href="cafeteria.html">Cafeteria</a>
+            <a href="snacks.html">Snacks</a>
+            <a href="beverges.html">Beverages</a>
+        </nav>
+        <div class="search-cart">
+           
+            <a href="cart.html"class="cart-icon">&#128722;</a>
+        </div>
+        <div class="auth-links">
+            <a href="help.html">Help</a>
+            <a href="profile.html">Profile</a>
+        </div>
+    </header>
+
+    <main class="content">
+        <h1 class="hotel-title">Udupi</h1>
+        <div class="food-grid">
+            <div class="food-item">
+                <img src="udupi\idli.jpeg" alt="Chicken Boneless Biryani">
+                <div class="food-name">Idli</div>
+                <div class="food-price">₹80</div>
+                <div class="food-rating">⭐ 4.8</div>
+
+                <button class="add-to-cart-btn" onclick="addToCart('Idli',80)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\dosa.jpeg" alt="Paneer Biryani">
+                <div class="food-name">Dosa</div>
+                <div class="food-price">₹60</div>
+                <div class="food-rating">⭐ 4.9</div>
+               
+                <button class="add-to-cart-btn" onclick="addToCart('Dosa', 60)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\bonda.jpeg" alt="Mutton Biryani">
+                <div class="food-name">Bonda</div>
+                <div class="food-price">₹50</div>
+                <div class="food-rating">⭐ 4.3</div>
+                
+                <button class="add-to-cart-btn" onclick="addToCart('Bonda',50)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\full meals.jpeg" alt="Vegetable Biryani">
+                <div class="food-name">Full Meals</div>
+                <div class="food-price">₹120</div>
+                <div class="food-rating">⭐ 4.9</div>
+                
+                <button class="add-to-cart-btn" onclick="addToCart('Full Meals', 120)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\panipuri.jpeg" alt="Egg Biryani">
+                <div class="food-name">Pani puri</div>
+                <div class="food-price">₹40</div>
+                <div class="food-rating">⭐ 4.4</div>
+                
+                <button class="add-to-cart-btn" onclick="addToCart('Pani puri', 40)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\upma.jpeg" alt="Fish Biryani">
+                <div class="food-name">Upma</div>
+                <div class="food-price">₹35</div>
+                <div class="food-rating">⭐ 4.6</div>
+                
+                <button class="add-to-cart-btn" onclick="addToCart('Upma', 35)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\bisibele.jpeg" alt="Fish Biryani">
+                <div class="food-name">Bisibele Bath</div>
+                <div class="food-price">₹65</div>
+                <div class="food-rating">⭐ 4.4</div>
+                
+                <button class="add-to-cart-btn" onclick="addToCart('Bisibele Bath', 65)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\ice.jpeg" alt="Fish Biryani">
+                <div class="food-name">Ice cream</div>
+                <div class="food-price">₹80</div>
+                <div class="food-rating">⭐ 4.4</div>
+                
+                <button class="add-to-cart-btn" onclick="addToCart('Ice cream', 80)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\avalakki.jpeg" alt="Fish Biryani">
+                <div class="food-name">Avalakki</div>
+                <div class="food-price">₹90</div>
+                <div class="food-rating">⭐ 4.4</div>
+                
+                <button class="add-to-cart-btn" onclick="addToCart('Avalakki', 90)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\special.jpeg" alt="Fish Biryani">
+                <div class="food-name">Special Uta</div>
+                <div class="food-price">₹250</div>
+                <div class="food-rating">⭐ 4.4</div>
+               
+                <button class="add-to-cart-btn" onclick="addToCart('Special Uta', 250)">Add to Cart</button>
+            </div>
+            <div class="food-item">
+                <img src="udupi\vada.jpeg" alt="Fish Biryani">
+                <div class="food-name">Vada</div>
+                <div class="food-price">₹40</div>
+                <div class="food-rating">⭐ 4.4</div>
+                
+                <button class="add-to-cart-btn" onclick="addToCart('Vada',40)">Add to Cart</button>
+            </div>
+            <!-- Add more food items as needed -->
+        </div>
+    </main>
+
+    
+
+    <script>
+        // Function to add item to cart
+        function addToCart(name, price) {
+            // Get cart from localStorage, or create a new cart if it doesn't exist
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+            // Check if item already exists in cart
+            let itemIndex = cart.findIndex(item => item.name === name);
+            if (itemIndex !== -1) {
+                // Item exists, increment quantity
+                cart[itemIndex].quantity++;
+            } else {
+                // Item doesn't exist, add it to the cart
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} has been added to your cart!`);
+        }
+    
+        
+
+       
+    </script>
+</body>
+</html>

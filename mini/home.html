@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Food Delivery</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+            perspective: 1000px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            border-bottom: 3px solid #FF6F61;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-links a {
+            margin: 2px 20px;
+            text-decoration: none;
+            color: #FF6F61;
+           
+            font-weight: 600;
+        }
+
+        .search-cart {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search-bar {
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: #FF6F61;
+        }
+
+        .cart-icon {
+            margin-left: 1000px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #FF6F61;
+        }
+
+        main {
+            padding: 100px 20px 20px;
+            text-align: center;
+        }
+
+        .inspiration {
+            margin: 20px 0;
+        }
+
+        .inspiration h2 {
+            font-size: 30px;
+            color: #f73333;
+            text-align: center;
+            margin-left: 50px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .food-categories-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 10;
+        }
+
+        .scroll-button.left {
+            left: 10px;
+        }
+
+        .scroll-button.right {
+            right: 10px;
+        }
+
+        .food-categories {
+            display: flex;
+            justify-content: flex-start;
+            overflow-x: auto;
+            padding: 20px;
+            white-space: nowrap;
+            scrollbar-width: none;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.5s;
+        }
+
+        .food-categories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category {
+            display: inline-block;
+            margin: 20px;
+            text-align: center;
+            transform: perspective(1000px) rotateX(0deg);
+            transition: transform 0.5s;
+        }
+
+        .category:hover {
+            transform: perspective(1000px) rotateX(10deg);
+        }
+
+        .category img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .category p {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .hotels-section {
+            margin: 40px 0;
+           
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transform: perspective(1000px) rotateX(0deg);
+            transition: transform 0.5s;
+        }
+
+        .hotels-section h2 {
+            padding-top: 30px;
+            color: #f73333;
+            
+        }
+
+        .hotel {
+            display: inline-block;
+            width: calc(50% - 40px);
+            margin: 20px;
+        padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .hotel img {
+            width: 600px;
+            height: 400px;
+            border-radius: 8px;
+        }
+
+        .hotel:hover {
+            transform: translateY(-10px);
+        }
+
+        .hotel h3 {
+            margin-top: 10px;
+            font-size: 20px;
+            color: #FF6F61;
+        }
+        .checked {
+  color: orange;
+}
+
+        .hotel p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .about-contact-section {
+            background-color: #f8f8f8;
+            padding: 40px 20px;
+            text-align: left;
+        }
+
+        .about-contact-section h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .about-contact-section p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer div {
+            margin: 10px 20px;
+        }
+
+        .footer h3 {
+            margin-top: 0;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+
+        @media (max-width: 768px) {
+            .hotel {
+                width: calc(100% - 40px);
+            }
+
+            .category img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="home.html" class="logo">QuickEats</a>
+        <nav>
+            <a href="cafeteria.html">Cafeteria</a>
+            <a href="snacks.html">Snacks</a>
+            <a href="beverges.html">Beverages</a>
+            <a href="recommendations.html">Popular meal</a>
+        </nav>
+        <div class="search-cart">
+            
+            <a href="cart.html" class="cart-icon">
+                &#128722;
+            </a>
+        </div>
+        <div class="auth-links">
+            <a href="help.html">Help</a>
+            <a href="profile.html">Profile</a>
+        </div>
+    </header>
+    <main>
+        <section class="inspiration">
+            <h2>Stay Focused, Stay Fed</h2>
+            <div class="food-categories-container">
+                
+                <div class="food-categories" id="food-categories">
+                    <div class="category">
+                      <a href="mini in-campus/sandwich.html"><img src="sand.jpg" alt="Sandwich">
+                        <p>Sandwich</p></a>
+                    </div>
+                    <div class="category">
+                       <a href="mini in-campus/burger.html"><img src="burger.avif" alt="Burger">
+                        <p>Burger</p></a>
+                    </div>
+                    <div class="category">
+                       <a href="mini in-campus/chips.html"><img src="Potato Chips.jpeg" alt="chips">
+                        <p>Chips</p></a>
+                    </div>
+                    <div class="category">
+                       <a href="mini in-campus/biryani.html"><img src="biriyani.jpg" alt="Biryani">
+                        <p>Biryani</p></a>
+                    </div>
+                    <div class="category">
+                        <a href="mini in-campus/pizza.html"><img src="pizza.jpeg" alt="Pizza">
+                        <p>Pizza</p></a>
+                    </div>
+                    <div class="category">
+                        <a href="mini in-campus/dosa.html"><img src="mini in-campus\dosa\Masala Dosa.jpeg" alt="Dosa">
+                        <p>Dosa</p></a>
+                    </div>
+                    <div class="category">
+                        <a href="mini in-campus/momo.html"><img src="Momo.jpeg" alt="momos">
+                        <p>Momos</p></a>
+                    </div>
+                    <div class="category">
+                        <a href="mini in-campus/rolls.html"><img src="rols.png" alt="Rolls">
+                        <p>Rolls</p></a>
+                    </div>
+                    <div class="category">
+                        <a href="mini in-campus/thali.html"><img src="mini in-campus\thali types\south.jpeg" alt="Thali">
+                        <p>Thali</p></a>
+                    </div>
+                    <div class="category">
+                        <a href="mini in-campus/idli.html"><img src="mini in-campus\idli types\masla.jpeg" alt="Idli">
+                        <p>Idli</p></a>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <section class="hotels-section">
+            <h2>Discover Your Next Favorite Meal from Our Top-Rated Campus Hotels!</h2>
+            <div class="hotel">
+                <a href="hotel1.html"><img src="udupi1.jpg" alt="Hotel 1">
+                <h3>Udupi </h3>
+                <p>Delicious meals at affordable prices</p></a>
+            </div>
+            <div class="hotel">
+                <a href="hotel2.html"><img src="rotti mane.jpg" alt="Hotel 2">
+                <h3>Friends cafe </h3>
+                 <p>Where every bite of our delicious vegetarian and non-vegetarian Chinese dishes feels like a warm friendship on your taste buds</p></a>
+            </div>
+            <div class="hotel">
+                <a href="hotel3.html"><img src="manis.jpg" alt="Hotel 3">
+                <h3>Spices N Chefs </h3>
+                <p>Best place for snacks and beverages</p></a>
+            </div>
+            <div class="hotel">
+                <a href="hotel4.html"><img src="mercure.jpg" alt="Hotel 4">
+                <h3>Samosa Shop</h3>
+                <p>Take a stop for delicious samosas</p></a>
+            </div>
+        </section>
+
+        
+    </main>
+
+    <footer class="footer">
+        <div>
+            <h3>About Us</h3>
+            <a href="about.html">Who We Are</a>
+            
+            <a href="#">Contact Us</a>
+        </div>
+
+        <div>
+            <h3>For Restaurants</h3>
+            <a href="#">Partner With Us</a>
+        </div>
+ 
+        <div>
+            <h3>Social Links</h3>
+            <a href="#">LinkedIn</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">Facebook</a>
+        </div>
+        
+    </footer>
+
+    <script>
+        const foodCategories = document.getElementById('food-categories');
+
+        function scrollLeft() {
+            foodCategories.scrollBy({
+                left: -200,
+                behavior: 'smooth'
+            });
+        }
+
+        function scrollRight() {
+            foodCategories.scrollBy({
+                left: 200,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+
+</html>

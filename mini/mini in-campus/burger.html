@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+            perspective: 1000px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            border-bottom: 3px solid #FF6F61;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-links a {
+            margin: 2px 20px;
+            text-decoration: none;
+            color: #FF6F61;
+            font-weight: 600;
+        }
+
+        .search-cart {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search-bar {
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: #FF6F61;
+        }
+
+        .cart-icon {
+            margin-left: 1000px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #FF6F61;
+            position: relative;
+        }
+
+        .cart-icon::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        main {
+            padding: 100px 20px 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 30px;
+            color: #f73333;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .burger-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .burger-item {
+            margin: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 250px;
+        }
+
+        .burger-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .burger-item img {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .burger-item h3 {
+            font-size: 20px;
+            color: #FF6F61;
+            margin: 10px 0;
+        }
+
+        .burger-item p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .hotel-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #FF6F61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #e65550;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer div {
+            margin: 10px 20px;
+        }
+
+        .footer h3 {
+            margin-top: 0;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .sandwich-item {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../home.html" class="logo">QuickEats</a>
+        <nav>
+            <a href="../cafeteria.html">Cafeteria</a>
+            <a href="../snacks.html">Snacks</a>
+            <a href="../beverages.html">Beverages</a>
+        </nav>
+        <div class="search-cart">
+            
+            <a href="../cart.html"class="cart-icon">&#128722;</a>
+        </div>
+        <div class="auth-links">
+            <a href="../help.html">Help</a>
+            <a href="../profile.html">Profile</a>
+        </div>
+    </header>
+    <main>
+        <h2>Burger</h2>
+        <div class="burger-list">
+            <div class="burger-item">
+                <img src="burger\Chili burger.jpeg" alt="Chili burger">
+                <h3>Chili burger - Rs 120</h3>
+                <div class="hotel-name">Available at: Udupi</div>
+                <p>The Chili burger, smothered in chili, offers a deliciously messy and indulgent feast</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Chili burger',120)">Add to Cart</button>
+            </div>
+            <div class="burger-item">
+                <img src="burger\Classic Cheeseburger.jpeg" alt="Classic Cheeseburger">
+                <h3>Classic Cheeseburger - Rs 130</h3>
+                <div class="hotel-name">Available at: Rotti Mane</div>
+                <p>The quintessential type of burger, the Classic Cheeseburger, comprises juicy beef patties cooked to perfection, topped with a slice of melty American cheese or cheddar, crisp lettuce, ripe tomato, thinly sliced red onions, and dill pickle chips.</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Classic Cheeseburger',130)">Add to Cart</button>
+            </div>
+            <div class="burger-item">
+                <img src="burger\Gourmet Burgers.jpeg" alt="Gourmet Burgers">
+                <h3>Gourmet Burgers - Rs 155</h3>
+                <div class="hotel-name">Available at: Manis</div>
+                <p>an upscale take on the classic burger that incorporates premium ingredients like top-quality beef cuts, artisanal cheeses, and freshly baked buns.</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Gourmet Burgers',155)">Add to Cart</button>
+            </div>
+            <div class="burger-item">
+                <img src="burger\Indian-Spiced Burger.jpeg" alt="Indian-Spiced Burger">
+                <h3>Indian-Spiced Burger - Rs 70</h3>
+                <div class="hotel-name">Available at: Mercure Hotel</div>
+                <p>This burger marries the classic beef patty with Indian spices and flavors, often featuring a patty seasoned with garam masala, cumin, and coriander and topped with ingredients like yogurt sauce, pickled onions, and fresh cilantro.</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Indian-Spiced Burger',70)">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div>
+            <a href="../about.html"><h3>About Us</h3></a>
+            <p>Discover new tastes</p>
+        </div>
+        <div>
+            <h3>Contact</h3>
+            <p>Email: info@quickeats.com</p>
+            <p>Phone: 123-456-7890</p>
+        </div>
+        <div>
+            <h3>Follow Us</h3>
+            <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        function addToCart(name, price) {
+            // Get cart from localStorage, or create a new cart if it doesn't exist
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Check if item already exists in cart
+            let itemIndex = cart.findIndex(item => item.name === name);
+            if (itemIndex !== -1) {
+                // Item exists, increment quantity
+                cart[itemIndex].quantity++;
+            } else {
+                // Item doesn't exist, add it to the cart
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} has been added to your cart!`);
+        }
+    </script>
+</body>
+
+</html>

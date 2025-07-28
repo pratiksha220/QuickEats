@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickEats - Cafeteria</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        .add-to-cart-btn {
+            background-color: #FF6F61; /* Button color */
+            color: white; /* Text color */
+            font-weight: bold;
+            font-size: 16px;
+            padding: 12px 20px;
+            border-radius: 30px; /* Rounded corners */
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Smooth transition */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+            display: inline-block;
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #e64a3c; /* Darker shade on hover */
+            transform: scale(1.05); /* Slightly enlarge the button */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            border-bottom: 3px solid #FF6F61;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #FF6F61;
+            font-weight: 600;
+        }
+
+        .search-cart {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search-bar {
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: #FF6F61;
+        }
+
+        .cart-icon {
+            margin-left: 1000px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #FF6F61;
+            position: relative;
+        }
+
+        .cart-icon::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #FF6F61;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            font-size: 14px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 36px;
+            color: #FF6F61;
+            margin-bottom: 20px;
+        }
+
+        .coffee-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .coffee-item {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 7px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: calc(33% - 20px);
+            text-align: center;
+            box-sizing: border-box;
+            transition: transform 0.3s, box-shadow 0.3s;
+            transform: perspective(1px) translateZ(0);
+        }
+
+        .coffee-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .coffee-item img {
+            width: 250px;
+            height: 200px;
+            border-radius: 10px;
+            background: none;
+        }
+
+        .coffee-item h3 {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .coffee-item p {
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .coffee-item .price {
+            font-size: 18px;
+            color: #FF6F61;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .coffee-item .old-price {
+            text-decoration: line-through;
+            color: #888;
+            margin-right: 10px;
+        }
+
+        .coffee-item .quantity-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .coffee-item .quantity-btn button {
+            background-color: #FF6F61;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+
+        .coffee-item .quantity-btn span {
+            font-size: 16px;
+            margin: 0 10px;
+        }
+    </style>
+    <script>
+        // Function to add item to cart
+        function addToCart(name, price) {
+            // Get cart from localStorage, or create a new cart if it doesn't exist
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+            // Check if item already exists in cart
+            let itemIndex = cart.findIndex(item => item.name === name);
+            if (itemIndex !== -1) {
+                // Item exists, increment quantity
+                cart[itemIndex].quantity++;
+            } else {
+                // Item doesn't exist, add it to the cart
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} has been added to your cart!`);
+        }
+    
+        // Increase quantity
+        function increaseQuantity(id, price, name) {
+            const quantityElement = document.querySelector(`#quantity-${id}`);
+            let quantity = parseInt(quantityElement.innerText);
+            quantity++;
+            quantityElement.innerText = quantity;
+            
+            // Update cart in localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let itemIndex = cart.findIndex(item => item.name === name);
+            if (itemIndex !== -1) {
+                cart[itemIndex].quantity = quantity;
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    
+        // Decrease quantity
+        function decreaseQuantity(id, price, name) {
+            const quantityElement = document.querySelector(`#quantity-${id}`);
+            let quantity = parseInt(quantityElement.innerText);
+            if (quantity > 0) {
+                quantity--;
+                quantityElement.innerText = quantity;
+    
+                // Update cart in localStorage
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                let itemIndex = cart.findIndex(item => item.name === name);
+                if (itemIndex !== -1 && cart[itemIndex].quantity > 0) {
+                    cart[itemIndex].quantity = quantity;
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <a href="home.html" class="logo">QuickEats</a>
+        <nav>
+            <a href="cafeteria.html">Cafeteria</a>
+            <a href="snacks.html">Snacks</a>
+            <a href="beverges.html">Beverages</a>
+        </nav>
+        <div class="search-cart">
+           
+            <a href="cart.html"class="cart-icon">&#128722;</a>
+        </div>
+        <div class="auth-links">
+            <a href="help.html">Help</a>
+            <a href="profile.html">Profile</a>
+        </div>
+    </header>
+    <main>
+        <section class="hero-section">
+            <h1>Enjoy a Cozy and Warming Food from Our Campus Cafeteria!</h1>
+            <div class="coffee-list">
+                <div class="coffee-item">
+                    <img src="Espresso.jpeg" alt="Coffee 1">
+                    <h3>Espresso </h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹100</span>₹90</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(1,90,'Espresso')">-</button>
+                        <span id="quantity-1">0</span>
+                        <button onclick="increaseQuantity(1,90,'Espresso')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Espresso', 90)">Add to Cart</button>
+                </div>
+                <div class="coffee-item">
+                    <img src="Cappuccino.jpeg" alt="Coffee 2">
+                    <h3>Cappuccino </h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹100</span>₹80</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(2,80,'Cappuccino')">-</button>
+                        <span id="quantity-2">0</span>
+                        <button onclick="increaseQuantity(2,80,'Cappuccino')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Cappuccino',80)">Add to Cart</button>
+                </div>
+                <div class="coffee-item">
+                    <img src="Latte.jpeg" alt="Coffee 3">
+                    <h3>Latte</h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹120</span>₹100</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(3,100,'Latte')">-</button>
+                        <span id="quantity-3">0</span>
+                        <button onclick="increaseQuantity(3,100,'Latte')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Latte', 100)">Add to Cart</button>
+                </div>
+                <div class="coffee-item">
+                    <img src="Mocha.jpeg" alt="Coffee 4">
+                    <h3>Mocha</h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹100</span>₹90</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(4,90,'Mocha')">-</button>
+                        <span id="quantity-4">0</span>
+                        <button onclick="increaseQuantity(4,90,'Mocha')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Mocha', 90)">Add to Cart</button>
+                </div>
+                <div class="coffee-item">
+                    <img src="Americano.jpeg" alt="Coffee 5">
+                    <h3>Americano</h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹120</span>₹100</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(5,100,'Americano')">-</button>
+                        <span id="quantity-5">0</span>
+                        <button onclick="increaseQuantity(5,100,'Americano')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Americano', 60)">Add to Cart</button>
+                </div>
+                <div class="coffee-item">
+                    <img src="Macchiato.jpeg" alt="Coffee 6">
+                    <h3>Macchiato</h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹100</span>₹90</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(6,90,'Macchiato')">-</button>
+                        <span id="quantity-6">0</span>
+                        <button onclick="increaseQuantity(6,90,'Macchiato')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Macchiato', 60)">Add to Cart</button>
+                </div>
+                <div class="coffee-item">
+                    <img src="Affogato.jpeg" alt="Coffee 7">
+                    <h3>Affogato</h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹130</span>₹110</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(7,110,'Affogato')">-</button>
+                        <span id="quantity-7">0</span>
+                        <button onclick="increaseQuantity(7,110,'Affogato')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Affogato',110)">Add to Cart</button>
+                </div>
+                <div class="coffee-item">
+                    <img src="Flat White.jpeg" alt="Coffee 8">
+                    <h3>Flat White</h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹100</span>₹80</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(8,80,'Flat White')">-</button>
+                        <span id="quantity-8">0</span>
+                        <button onclick="increaseQuantity(8,80,'Flat White')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Flat White',80)">Add to Cart</button>
+                </div>
+                <div class="coffee-item">
+                    <img src="Ristretto.jpeg" alt="Coffee 9">
+                    <h3>Ristretto</h3>
+                    <p>Available - Kahani Cafe</p>
+                    <p class="price"><span class="old-price">₹100</span>₹80</p>
+                    <div class="quantity-btn">
+                        <button onclick="decreaseQuantity(9,80,'Ristretto')">-</button>
+                        <span id="quantity-9">0</span>
+                        <button onclick="increaseQuantity(9,80,'Ristretto')">+</button>
+                    </div>
+                    <button class="add-to-cart-btn" onclick="addToCart('Ristretto',80)">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

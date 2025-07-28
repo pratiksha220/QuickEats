@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Bar with Suggestions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="search-container">
+        <input type="text" id="search-bar" class="search-bar" placeholder="Search..." onkeyup="showSuggestions(this.value)">
+        <div id="suggestions-box" class="suggestions-box"></div>
+        <div id="results-container" class="results-container"></div>
+    </div>
+
+    <script src="search.js"></script>
+</body>
+</html>

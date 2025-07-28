@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chips</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0f7fa;
+            perspective: 1000px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            padding: 10px 0;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.active {
+            border-bottom: 3px solid #FF6F61;
+        }
+
+        .auth-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .auth-links a {
+            margin: 2px 20px;
+            text-decoration: none;
+            color: #FF6F61;
+            font-weight: 600;
+        }
+
+        .search-cart {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .search-bar {
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            border-color: #FF6F61;
+        }
+
+        .cart-icon {
+            margin-left: 1000px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #FF6F61;
+            position: relative;
+        }
+
+        .cart-icon::after {
+            content: attr(data-count);
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+
+        main {
+            padding: 100px 20px 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 30px;
+            color: #f73333;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .chips-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .chips-item {
+            margin: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            width: 250px;
+        }
+
+        .chips-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .chips-item img {
+            width: 100%;
+            height: 150px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .chips-item h3 {
+            font-size: 20px;
+            color: #FF6F61;
+            margin: 10px 0;
+        }
+
+        .chips-item p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .hotel-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .add-to-cart-btn {
+            background-color: #FF6F61;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #e65550;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer div {
+            margin: 10px 20px;
+        }
+
+        .footer h3 {
+            margin-top: 0;
+        }
+
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .chips-item {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="../home.html" class="logo">QuickEats</a>
+        <nav>
+            <a href="../cafeteria.html">Cafeteria</a>
+            <a href="../snacks.html">Snacks</a>
+            <a href="../beverges.html">Beverages</a>
+        </nav>
+        <div class="search-cart">
+            
+            <a href="../cart.html" class="cart-icon">&#128722;</a>
+        </div>
+        <div class="auth-links">
+            <a href="../help.html">Help</a>
+            <a href="../profile.html">Profile</a>
+        </div>
+    </header>
+    <main>
+        <h2>chips</h2>
+        <div class="chips-list">
+            <div class="chips-item">
+                <img src="chips\lays.jpeg" alt="Lay’s Classic Potato Chips">
+                <h3>Lay’s Classic Potato Chips - Rs 20</h3>
+                <div class="hotel-name">Available at: MUNCH</div>
+                <p>Lay’s reigns supreme. Thin and salty, the classic potato chips in a yellow bag are a staple at backyard barbecues and in brown bag lunches</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Lay’s Classic Potato Chips',20)">Add to Cart</button>
+            </div>
+            <div class="chips-item">
+                <img src="chips\Pringles Original.jpeg" alt="Pringles Original">
+                <h3>Pringles Original - Rs 190</h3>
+                <div class="hotel-name">Available at: MUNCH</div>
+                <p>The original is a salty snack made with dried potatoes and that comes in a red canister.</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Pringles Original',190)">Add to Cart</button>
+            </div>
+            <div class="chips-item">
+                <img src="chips\Doritos Tortilla Chips Tapatio.jpeg" alt="Doritos Tortilla Chips Tapatio">
+                <h3>Doritos Tortilla Chips Tapatio - Rs 50</h3>
+                <div class="hotel-name">Available at: MUNCH</div>
+                <p>No need to douse your chips in hot sauce anymore! Recognizing a growing love for hot sauces, Doritos debuted its Tapatio-flavored chips in 2011, spicing up chips with a fiery, garlicky hot sauce flavor.</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Doritos Tortilla Chips Tapatio',50)">Add to Cart</button>
+            </div>
+            <div class="chips-item">
+                <img src="chips\Cheetos Crunchy.jpeg" alt="Cheetos Crunchy">
+                <h3>Cheetos Crunchy - Rs 20</h3>
+                <div class="hotel-name">Available at: MUNCH</div>
+                <p>These crunchy, cheesy corn snacks will coat your fingers in neon powder but are totally worth it.</p>
+                <button class="add-to-cart-btn" onclick="addToCart('Cheetos Crunchy',20)">Add to Cart</button>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div>
+            <a href="../about.html"><h3>About Us</h3></a>
+            <p>The joy of having campus food</p>
+        </div>
+        <div>
+            <h3>Contact</h3>
+            <p>Email: info@quickeats.com</p>
+            <p>Phone: 123-456-7890</p>
+        </div>
+        <div>
+            <h3>Follow Us</h3>
+            <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        function addToCart(name, price) {
+            // Get cart from localStorage, or create a new cart if it doesn't exist
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Check if item already exists in cart
+            let itemIndex = cart.findIndex(item => item.name === name);
+            if (itemIndex !== -1) {
+                // Item exists, increment quantity
+                cart[itemIndex].quantity++;
+            } else {
+                // Item doesn't exist, add it to the cart
+                cart.push({ name: name, price: price, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${name} has been added to your cart!`);
+        }
+
+    </script>
+</body>
+
+</html>

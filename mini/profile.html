@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .profile-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .profile-details, .order-progress, .account-balance {
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-info img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin-right: 20px;
+            object-fit: cover;
+        }
+
+        .profile-info div {
+            flex: 1;
+        }
+
+        .profile-info p {
+            margin: 5px 0;
+        }
+
+        .order-progress ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .order-progress li {
+            margin-bottom: 10px;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+
+        .order-progress .status {
+            color: #007bff;
+        }
+
+        .account-balance p {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .edit-form {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 8px;
+        }
+
+        .edit-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .edit-form input, .edit-form button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .edit-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .edit-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .edit-form input[type="text"], 
+        .edit-form input[type="email"], 
+        .edit-form input[type="tel"] {
+            font-size: 16px;
+        }
+
+        .edit-form input:focus {
+            border-color: #007bff;
+        }
+
+        .profile-container a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .profile-container a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <header>
+            <h1>Customer Profile</h1>
+        </header>
+
+        <section class="profile-details">
+            <h2>Profile Information</h2>
+            <div class="profile-info">
+                <img id="profile-photo" src="user-icon.jpg" alt="Customer Photo">
+                <div>
+                    <p><strong>Name:</strong> <span id="profile-name"></span></p>
+                    <p><strong>USN:</strong> <span id="profile-email"></span></p>
+                    <p><strong>Phone:</strong> <span id="profile-phone"></span></p>
+                    <p><strong>Address:</strong> <span id="profile-address"></span></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="edit-form">
+            <h2>Edit Profile</h2>
+           
+            
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            
+            <label for="email">USN:</label>
+            <input type="email" id="email" placeholder="Enter your usn">
+            
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number">
+
+            <label for="address">Address</label>
+            <textarea id="address" naeme="address"></textarea>
+            
+            <button onclick="updateProfile()">Update Profile</button>
+            <button onclick="logout()">Logout</button>
+        </section>
+    </div>
+
+    <script>
+        // Update profile details in the UI
+        function updateProfile() {
+         
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            // Update the profile details in the page
+           
+            if (name) document.getElementById('profile-name').textContent = name;
+            if (email) document.getElementById('profile-email').textContent = email;
+            if (phone) document.getElementById('profile-phone').textContent = phone;
+            if (address) document.getElementById('profile-address').textContent = address;
+
+            // Optionally store data in localStorage (for persistence across page refresh)
+      
+            localStorage.setItem('profileName', name);
+            localStorage.setItem('profileEmail', email);
+            localStorage.setItem('profilePhone', phone);
+            localStorage.setItem('profilePhone', address);
+            // Clear input fields
+          
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('address').value = '';
+        }
+
+        // Logout functionality - redirect to index page
+        function logout() {
+            // Clear localStorage (if needed)
+            localStorage.clear();
+
+            // Redirect to index.html
+            window.location.href = 'index.html';
+        }
+
+        // Load profile data from localStorage (if available)
+        window.onload = function() {
+            const storedName = localStorage.getItem('profileName');
+            const storedEmail = localStorage.getItem('profileEmail');
+            const storedPhone = localStorage.getItem('profilePhone');
+            const storedAddress = localStorage.getItem('profileAddress');
+           
+            if (storedName) document.getElementById('profile-name').textContent = storedName;
+            if (storedEmail) document.getElementById('profile-email').textContent = storedEmail;
+            if (storedPhone) document.getElementById('profile-phone').textContent = storedPhone;
+            if (storedAddress) document.getElementById('profile-address').textContent = storedAddress;
+        }
+    </script>
+</body>
+</html>

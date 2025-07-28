@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #007bff;
+            color: white;
+        }
+
+        .recommendations-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .meal-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        .meal-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+
+        .meal-info {
+            flex-grow: 1;
+        }
+
+        .meal-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .meal-stats {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .add-to-cart-btn {
+            background-color: #FF6F61;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #e64a3c;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Popular Meals</h1>
+</header>
+
+<div class="recommendations-container">
+    <div id="meal-list">
+        <!-- Popular meals will be displayed here -->
+    </div>
+</div>
+
+<footer>
+    &copy; 2024 QuickEats
+</footer>
+
+<script>
+    function updateRecommendations() {
+        let previousOrders = JSON.parse(localStorage.getItem('previousOrders')) || {};
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Update previousOrders with current cart data
+        cart.forEach(item => {
+            if (previousOrders[item.name]) {
+                previousOrders[item.name].quantity += item.quantity;
+                previousOrders[item.name].price = item.price; // Ensure price is updated
+            } else {
+                previousOrders[item.name] = {
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price, // Add price to the order
+                    image: findImageForMeal(item.name) // Retrieve image based on item name
+                };
+            }
+        });
+
+        // Save updated orders back to localStorage
+        localStorage.setItem('previousOrders', JSON.stringify(previousOrders));
+
+        // Display the updated recommendations
+        displayRecommendations(previousOrders);
+    }
+
+    function displayRecommendations(orders) {
+        const mealList = document.getElementById('meal-list');
+        mealList.innerHTML = '';
+
+        const sortedMeals = Object.values(orders).sort((a, b) => b.quantity - a.quantity);
+
+        sortedMeals.forEach(meal => {
+            const mealItem = document.createElement('div');
+            mealItem.classList.add('meal-item');
+
+            mealItem.innerHTML = `
+                <img src="${meal.image}" alt="${meal.name}">
+                <div class="meal-info">
+                    <div class="meal-name">${meal.name}</div>
+                    <div class="meal-stats">Ordered ${meal.quantity} times</div>
+                    <div class="meal-stats">Price: ₹${meal.price}</div>
+                    <button class="add-to-cart-btn" onclick="addToCart('${meal.name}', ${meal.price})">Add to Cart</button>
+                </div>
+            `;
+
+            mealList.appendChild(mealItem);
+        });
+    }
+
+    function findImageForMeal(mealName) {
+        const imageMap = {
+            'Idli': 'udupi/idli.jpeg',
+            'Dosa': 'udupi/dosa.jpeg',
+            'Bonda': 'udupi/bonda.jpeg',
+            'Full Meals': 'udupi/full meals.jpeg',
+            'Pani puri': 'udupi/panipuri.jpeg',
+            'Upma': 'udupi/upma.jpeg',
+            'Bisibele Bath': 'udupi/bisibele.jpeg',
+            'Ice cream': 'udupi/ice.jpeg',
+            'Avalakki': 'udupi/avalakki.jpeg',
+            'Special Uta': 'udupi/special.jpeg',
+            'Vada': 'udupi/vada.jpeg'
+        };
+
+        return imageMap[mealName] || 'default-image.jpeg'; // Fallback image
+    }
+
+    function addToCart(name, price) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Check if item already exists in cart
+        let itemIndex = cart.findIndex(item => item.name === name);
+        if (itemIndex !== -1) {
+            cart[itemIndex].quantity++;
+        } else {
+            cart.push({ name: name, price: price, quantity: 1 });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${name} has been added to your cart!`);
+    }
+
+    // Initialize recommendations on page load
+    window.onload = updateRecommendations;
+</script>
+
+</body>
+</html>
