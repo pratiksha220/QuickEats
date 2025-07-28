@@ -19,17 +19,17 @@ It provides a seamless platform to **browse menus, add food to the cart, make pa
 
 🧪 Testing
 We performed:
-✅ Unit Testing – checked login, cart updates, and payments
-✅ Integration Testing – verified frontend & Firebase sync
-✅ UI Testing – ensured responsiveness & accessibility
-✅ Exception Handling – tested invalid logins and cart edge cases
+- **Unit Testing** – checked login, cart updates, and payments
+- **Integration Testing** – verified frontend & Firebase sync
+- **UI Testing** – ensured responsiveness & accessibility
+- **Exception Handling** – tested invalid logins and cart edge cases
 
 🎯 Future Enhancements
--📍 GPS-based Live Order Tracking
--📱 Mobile App using React Native/Flutter
--🧠 AI-driven Food Recommendations
--🗓️ Scheduled Order System
--🍔 Vendor dashboard for managing menus
+- 📍 GPS-based Live Order Tracking
+- 📱 Mobile App using React Native/Flutter
+- 🧠 AI-driven Food Recommendations
+- 🗓️ Scheduled Order System
+- 🍔 Vendor dashboard for managing menus
 
 Contact
 - Email- 2207pratiksha@gmail.com
